@@ -1,4 +1,5 @@
 from random import choice, randint
+
 import pygame
 
 # Константы для размеров поля и сетки:
@@ -37,9 +38,11 @@ pygame.display.set_caption('Змейка')
 # Настройка времени:
 clock = pygame.time.Clock()
 """Базовый класс для всех объектов игры."""
+
 # Тут опишите все классы игры.
 class GameObject:
-
+    """Базовый класс для всех объектов игры."""
+    
     position = ((SCREEN_WIDTH // 2), (SCREEN_HEIGHT // 2))
 
     def __init__(self):
@@ -56,6 +59,10 @@ class Apple(GameObject):
     """Класс, представляющий яблоко."""
 
     def __init__(self):
+        super().__init__()
+        self.init()
+
+    def init(self):
         """Инициализация яблока"""
         self.body_color = APPLE_COLOR
         self.randomize_position()
