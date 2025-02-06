@@ -152,12 +152,11 @@ def main():
         clock.tick(SPEED)
 
         if game_over:
-            # Логика завершения игры
             font = pygame.font.Font(None, 74)
             text = font.render("Game Over", True, (255, 0, 0))
             screen.blit(text, (SCREEN_WIDTH // 4, SCREEN_HEIGHT // 3))
             pygame.display.flip()
-            pygame.time.wait(2000)  # Ожидание 2 секунды перед выходом
+            pygame.time.wait(2000)
             running = False
 
 if __name__ == "__main__":
