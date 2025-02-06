@@ -69,6 +69,7 @@ class Snake(GameObject):
         self.grow = False
         self.color = BORDER_COLOR
         self.body_color = SNAKE_COLOR
+        self.last = None
 
     def get_head_position(self):
         return self.positions[0]
@@ -133,16 +134,33 @@ def main():
                 snake.get_head_position() in snake.positions[1:]):
                 game_over = True 
 
-            screen.fill((0, 0, 0))  # Очистка экрана, например, черным цветом
+            screen.fill(BOARD_BACKGROUND_COLOR)  # Очистка экрана черным цветом
 
-            apple.draw()  # Рисуем яблоко
-            
-            for pos in snake.positions:
-                pygame.draw.rect(screen, snake.body_color, pygame.Rect(pos, (GRID_SIZE, GRID_SIZE)))
-                pygame.draw.rect(screen, BORDER_COLOR, pygame.Rect(pos, (GRID_SIZE, GRID_SIZE)), 1)
+        # Отрисовка змейки
+        for pos in snake.positions:
+            rect = pygame.Rect(pos, (GRID_SIZE, GRID_SIZE))
+            pygame.draw.rect(screen, snake.body_color, rect)
+            pygame.draw.rect(screen, snake.color, rect, 1)
 
-            pygame.display.update()
-            clock.tick(SPEED)
+        # Отрисовка яблока
+        apple.draw()
 
-if __name__ == '__main__':
+        # Обновление экрана
+        pygame.display.flip()
+
+        # Ограничение кадров в секунду
+        clock.tick(SPEED)
+
+        if game_over:
+            # Логика завершения игры
+            font = pygame.font.Font(None, 74)
+            text = font.render("Game Over", True, (255, 0, 0))
+            screen.blit(text, (SCREEN_WIDTH // 4, SCREEN_HEIGHT // 3))
+            pygame.display.flip()
+            pygame.time.wait(2000)  # Ожидание 2 секунды перед выходом
+            running = False
+
+if __name__ == "__main__":
+    pygame.init()
     main()
+    pygame.quit()
