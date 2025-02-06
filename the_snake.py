@@ -42,6 +42,7 @@ clock = pygame.time.Clock()
 # Тут опишите все классы игры.
 class GameObject:
     """Базовый класс для всех объектов игры."""
+    
 
     def __init__(self):
         self.position = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)
@@ -82,6 +83,7 @@ class Apple(GameObject):
 
 class Snake(GameObject):
     """Класс, представляющий змейку."""
+
 
     def __init__(self):
         """Инициализация змеи."""
@@ -163,6 +165,7 @@ def handle_keys(game_object):
 
 def main():
     """Функиция точка входа"""
+
     # Инициализация PyGame:
     pygame.init()
     # Тут нужно создать экземпляры классов.
