@@ -39,6 +39,7 @@ pygame.display.set_caption('Змейка')
 clock = pygame.time.Clock()
 """Базовый класс для всех объектов игры."""
 
+
 # Тут опишите все классы игры.
 class GameObject:
     """Базовый класс для всех объектов игры."""
@@ -79,6 +80,7 @@ class Apple(GameObject):
         rect = pygame.Rect(self.position, (GRID_SIZE, GRID_SIZE))
         pygame.draw.rect(screen, self.body_color, rect)
         pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
+
 
 class Snake(GameObject):
     """Класс, представляющий змейку."""
@@ -161,6 +163,7 @@ def handle_keys(game_object):
             elif event.key == pygame.K_RIGHT and game_object.direction != LEFT:
                 game_object.next_direction = RIGHT
 
+
 def main():
     """Функиция точка входа"""
     # Инициализация PyGame:
@@ -186,4 +189,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    
