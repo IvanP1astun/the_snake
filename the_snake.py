@@ -36,7 +36,6 @@ clock = pygame.time.Clock()
 
 
 class GameObject:
-
     def __init__(self):
         self.position = [(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)]
         self.body_color = None
@@ -53,9 +52,7 @@ class GameObject:
             f'Определите draw в {self.__class__.__name__}.'
         )
 
-
 class Apple(GameObject):
-
     def __init__(self):
         super().__init__()
         self.position = self.randomize_position()
@@ -70,7 +67,6 @@ class Apple(GameObject):
 
     def draw(self):
         self.draw_rect(self.position, self.body_color)
-
 
 class Snake(GameObject):
 
@@ -135,7 +131,6 @@ class Snake(GameObject):
     def snake_position(self):
         return self.positions[1:]
 
-
 def handle_keys(game_object):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -149,7 +144,6 @@ def handle_keys(game_object):
                 game_object.next_direction = LEFT
             elif event.key == pygame.K_RIGHT and game_object.direction != LEFT:
                 game_object.next_direction = RIGHT
-
 
 def main():
     apple = Apple()
@@ -168,7 +162,6 @@ def main():
         elif snake.get_head_position() in snake.snake_position():
             screen.fill(BOARD_BACKGROUND_COLOR)
             snake.reset()
-
 
 if __name__ == '__main__':
     main()
