@@ -56,12 +56,7 @@ class GameObject:
 class Apple(GameObject):
     """Класс, представляющий яблоко."""
 
-
-    def __init__(self, snake_positions=None):
-        # В Apple.__init__ обязательно параметром передаем
-        # список занятых клеток (нужно, чтобы выбрать
-        # рандомную позицию для яблока)
-        # Не знаю насколько я прав в ипралении замечания.
+    def __init__(self, snake_positions=None):  # Не знаю насколько я прав в ипралении замечания.
         """Инициализация яблока."""
         super().__init__()
         self.body_color = APPLE_COLOR
