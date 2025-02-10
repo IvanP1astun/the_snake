@@ -53,10 +53,11 @@ class GameObject:
         # В пустых методах без тела не нужно писать
         # pass, если есть докстринг - исправлено.
 
+
 class Apple(GameObject):
     """Класс, представляющий яблоко."""
 
-    def __init__(self, snake_positions=None):  # Не знаю насколько я прав в ипралении замечания.
+    def __init__(self, snake_positions=None):  # Исправил
         """Инициализация яблока."""
         super().__init__()
         self.body_color = APPLE_COLOR
