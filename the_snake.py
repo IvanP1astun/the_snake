@@ -50,11 +50,17 @@ class GameObject:
 
     def draw(self):
         """Метод для отрисовки объекта (может быть переопределен)."""
-        #В пустых методах без тела не нужно писать pass, если есть докстринг - исправлено.
+        # В пустых методах без тела не нужно писать
+        # pass, если есть докстринг - исправлено.
 
 class Apple(GameObject):
     """Класс, представляющий яблоко."""
-    def __init__(self, snake_positions = None):  #В Apple.__init__ обязательно параметром передаем список занятых клеток (нужно, чтобы выбрать рандомную позицию для яблока) - Не знаю насколько я прав в ипралении замечания.
+
+    def __init__(self, snake_positions=None):
+        # В Apple.__init__ обязательно параметром передаем
+        # список занятых клеток (нужно, чтобы выбрать
+        # рандомную позицию для яблока)
+        # Не знаю насколько я прав в ипралении замечания.
         """Инициализация яблока."""
         super().__init__()
         self.body_color = APPLE_COLOR
@@ -101,11 +107,15 @@ class Snake(GameObject):
 
     def move(self):
         """Перемещает змею в текущем направлении."""
-        head_x, head_y = self.get_head_position()  #нужно провести распаковку позиций головы/направления по x и y - не уверен, что правильно.
+        head_x, head_y = self.get_head_position()
+        # Нужно провести распаковку позиций головы/направления 
+        # по x и y - не уверен, что правильно.
         dir_x, dir_y = self.direction
         new_position = (
-    (head_x + dir_x * GRID_SIZE) % SCREEN_WIDTH,
-    (head_y + dir_y * GRID_SIZE) % SCREEN_HEIGHT)  #Все константы (цвета, размеры поля, итп) должны быть вынесены в константы на уровне модуля - испрвил.
+            (head_x + dir_x * GRID_SIZE) % SCREEN_WIDTH,
+            (head_y + dir_y * GRID_SIZE) % SCREEN_HEIGHT)
+    # Все константы (цвета, размеры поля, итп)
+    # должны быть вынесены в константы на уровне модуля - испрвил.
 
         if new_position in self.positions[2:]:
             self.reset()
@@ -122,7 +132,9 @@ class Snake(GameObject):
             pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
 
         # Отрисовка головы змейки
-        head_rect = pygame.Rect(self.positions[0], (GRID_SIZE, GRID_SIZE))  #Во всех прочих обращениях к голове змейки (например в методе Snake.draw ) нужно вызывать метод .get_head_position() , нельзя писать .positions[0] - непонимаю.
+        head_rect = pygame.Rect(self.positions[0], (GRID_SIZE, GRID_SIZE))
+        # Во всех прочих обращениях к голове змейки (например в методе Snake.draw )
+        # нужно вызывать метод .get_head_position() , нельзя писать .positions[0] - непонимаю.
         pygame.draw.rect(screen, self.body_color, head_rect)
         pygame.draw.rect(screen, BORDER_COLOR, head_rect, 1)
 
@@ -131,7 +143,10 @@ class Snake(GameObject):
             last_rect = pygame.Rect(self.last, (GRID_SIZE, GRID_SIZE))
             pygame.draw.rect(screen, BOARD_BACKGROUND_COLOR, last_rect)
 
-    def reset(self):  #В методе Snake.reset , сбрасывающем ее состояние, нельзя ничего “рисовать”, для этого есть отдельный метод. В частности нельзя вызывать заполнение поля фоном - имправил.
+    def reset(self):
+        # В методе Snake.reset , сбрасывающем ее состояние, нельзя ничего 
+        # “рисовать”, для этого есть отдельный метод. В частности нельзя 
+        # вызывать заполнение поля фоном - имправил.
         """Сбрасывает состояние змеи по умолчанию."""
         self.length = 1
         self.positions = [((SCREEN_WIDTH // 2), (SCREEN_HEIGHT // 2))]
@@ -146,7 +161,8 @@ def handle_keys(game_object):
         if event.type == pygame.QUIT:
             pygame.quit()
             raise SystemExit
-        if event.type == pygame.KEYDOWN:  # Здесь можно обойтись обычным if, так как выше есть guard block в виде raise. - подправил.
+        if event.type == pygame.KEYDOWN:
+            # Здесь можно обойтись обычным if, так как выше есть guard block в виде raise. - подправил.
             if event.key == pygame.K_UP and game_object.direction != DOWN:
                 game_object.next_direction = UP
             elif event.key == pygame.K_DOWN and game_object.direction != UP:
@@ -154,7 +170,8 @@ def handle_keys(game_object):
             elif event.key == pygame.K_LEFT and game_object.direction != RIGHT:
                 game_object.next_direction = LEFT
             elif event.key == pygame.K_RIGHT and game_object.direction != LEFT:
-                game_object.next_direction = RIGHT  # Непонимаю как сделать словарь.
+                game_object.next_direction = RIGHT
+                # Непонимаю как сделать словарь.
 
 
 def main():
@@ -174,7 +191,8 @@ def main():
         main_snake.move()
         if main_snake.positions[0] == main_apple.position:
             main_snake.length += 1
-            main_apple.randomize_position(main_snake.positions)  #Яблоко не должно появиться на змейки, нужно передавать координаты занятых мест. - Исправлено.
+            main_apple.randomize_position(main_snake.positions) 
+            # Яблоко не должно появиться на змейки, нужно передавать координаты занятых мест. - Исправлено.
         main_snake.draw()
         main_apple.draw()
         pygame.display.update()
