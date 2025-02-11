@@ -123,8 +123,6 @@ class Snake(GameObject):
 
     def draw(self):
         """Отрисовывает змею на экране."""
-
-
         screen.fill(BOARD_BACKGROUND_COLOR)
         """Отрисовывает змею на экране."""
         for position in self.positions[:-1]:
