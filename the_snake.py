@@ -122,6 +122,7 @@ class Snake(GameObject):
                 self.last = (self.positions).pop()
 
     def draw(self):
+        """Отрисовывает змею на экране."""
 
 
         screen.fill(BOARD_BACKGROUND_COLOR)
@@ -164,7 +165,7 @@ def handle_keys(game_object):
             pygame.quit()
             raise SystemExit
         if event.type == pygame.KEYDOWN:
-            
+
             if event.key == pygame.K_UP and game_object.direction != DOWN:
                 game_object.next_direction = UP
             elif event.key == pygame.K_DOWN and game_object.direction != UP:
