@@ -2,8 +2,6 @@ from random import choice, randint
 
 import pygame
 
-from tests.conftest import snake
-
 # Константы для размеров поля и сетки:
 SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
 GRID_SIZE = 20
@@ -52,8 +50,7 @@ class GameObject:
 
     def draw(self):
         """Метод для отрисовки объекта (может быть переопределен)."""
-        # В пустых методах без тела не нужно писать
-        # pass, если есть докстринг - исправлено.
+
 
 
 class Apple(GameObject):
@@ -113,8 +110,7 @@ class Snake(GameObject):
         new_position = (
             (head_x + dir_x * GRID_SIZE) % SCREEN_WIDTH,
             (head_y + dir_y * GRID_SIZE) % SCREEN_HEIGHT)
-    # Все константы (цвета, размеры поля, итп)
-    # должны быть вынесены в константы на уровне модуля - испрвил.
+
         # Обновление позиции головы.
         (self.positions).insert(0, new_position)
         if len(self.positions) > self.length:
@@ -130,10 +126,7 @@ class Snake(GameObject):
         # Отрисовка головы змейки
         head_rect = pygame.Rect(self.get_head_position(),
                                 (GRID_SIZE, GRID_SIZE))
-        # Во всех прочих обращениях к голове змейки
-        # (например в методе Snake.draw )
-        # нужно вызывать метод .get_head_position(),
-        # нельзя писать .positions[0] - непонимаю.
+
         pygame.draw.rect(screen, self.body_color, head_rect)
         pygame.draw.rect(screen, BORDER_COLOR, head_rect, 1)
 
@@ -143,9 +136,7 @@ class Snake(GameObject):
             pygame.draw.rect(screen, BOARD_BACKGROUND_COLOR, last_rect)
 
     def reset(self):
-        # В методе Snake.reset , сбрасывающем ее состояние, нельзя ничего
-        # “рисовать”, для этого есть отдельный метод. В частности нельзя
-        # вызывать заполнение поля фоном - имправил.
+
         """Сбрасывает состояние змеи по умолчанию."""
         self.length = 1
         self.positions = [((SCREEN_WIDTH // 2), (SCREEN_HEIGHT // 2))]
@@ -188,7 +179,10 @@ def main():
 
         if main_snake.get_head_position() == main_apple.position:
             main_snake.length += 1
-            main_apple.randomize_position(snake.positions)
+            main_apple.randomize_position(main_snake.positions)
+            main_apple_position = main_apple.position
+            while main_apple_position in main_snake.positions:
+                main_apple_position = main_apple.position
 
         screen.fill(BOARD_BACKGROUND_COLOR)
         main_snake.draw()
