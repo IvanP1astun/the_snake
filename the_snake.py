@@ -135,7 +135,6 @@ class Snake(GameObject):
             pygame.draw.rect(screen, BOARD_BACKGROUND_COLOR, last_rect)
 
     def reset(self):
-
         """Сбрасывает состояние змеи по умолчанию."""
         self.length = 1
         self.positions = [((SCREEN_WIDTH // 2), (SCREEN_HEIGHT // 2))]
@@ -143,7 +142,6 @@ class Snake(GameObject):
 
 
 def handle_keys(game_object):
-
     """обрабатывает нажатия клавиш, чтобы изменить направление движения
     змейки
     """
