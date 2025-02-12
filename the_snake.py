@@ -128,7 +128,7 @@ class Snake(GameObject):
             pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
 
         # Отрисовка головы змейки
-        head_rect=pygame.Rect(self.get_head_position(), (GRID_SIZE, GRID_SIZE))
+        head_rect = pygame.Rect(self.get_head_position(), (GRID_SIZE, GRID_SIZE))
         # Во всех прочих обращениях к голове змейки
         # (например в методе Snake.draw )
         # нужно вызывать метод .get_head_position(),
