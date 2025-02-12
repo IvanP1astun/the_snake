@@ -195,6 +195,7 @@ def main():
 
         pygame.display.update()
         clock.tick(SPEED)
-        
+
+
 if __name__ == '__main__':
     main()
