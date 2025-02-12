@@ -122,7 +122,6 @@ class Snake(GameObject):
 
     def draw(self):
         """Отрисовывает змею на экране."""
-
         for position in self.positions[:-1]:
             rect = (pygame.Rect(position, (GRID_SIZE, GRID_SIZE)))
             pygame.draw.rect(screen, self.body_color, rect)
@@ -186,7 +185,6 @@ def main():
         main_snake.update_direction()
         main_snake.move()
 
-
         if main_snake.get_head_position() == main_apple.position:
             main_snake.length += 1
             main_apple.randomize_position(snake.positions)
@@ -197,8 +195,6 @@ def main():
 
         pygame.display.update()
         clock.tick(SPEED)
-
-
-
+        
 if __name__ == '__main__':
     main()
