@@ -2,6 +2,8 @@ from random import choice, randint
 
 import pygame
 
+from tests.conftest import snake
+
 # Константы для размеров поля и сетки:
 SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
 GRID_SIZE = 20
@@ -113,25 +115,21 @@ class Snake(GameObject):
             (head_y + dir_y * GRID_SIZE) % SCREEN_HEIGHT)
     # Все константы (цвета, размеры поля, итп)
     # должны быть вынесены в константы на уровне модуля - испрвил.
-
-        if new_position in self.positions[2:]:
-            self.reset()
-        else:
-            (self.positions).insert(0, new_position)
-            if len(self.positions) > self.length:
-                self.last = (self.positions).pop()
+        # Обновление позиции головы.
+        (self.positions).insert(0, new_position)
+        if len(self.positions) > self.length:
+            self.last = (self.positions).pop()
 
     def draw(self):
         """Отрисовывает змею на экране."""
-        screen.fill(BOARD_BACKGROUND_COLOR)
-        """Отрисовывает змею на экране."""
+
         for position in self.positions[:-1]:
             rect = (pygame.Rect(position, (GRID_SIZE, GRID_SIZE)))
             pygame.draw.rect(screen, self.body_color, rect)
             pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
 
         # Отрисовка головы змейки
-        head_rect = pygame.Rect(self.positions[0], (GRID_SIZE, GRID_SIZE))
+        head_rect = pygame.Rect(self.get_head_position(), (GRID_SIZE, GRID_SIZE))
         # Во всех прочих обращениях к голове змейки
         # (например в методе Snake.draw )
         # нужно вызывать метод .get_head_position(),
@@ -184,20 +182,22 @@ def main():
     main_apple = Apple(main_snake.positions)  # Передаем позицию змеи
 
     while True:
-        clock.tick(SPEED)
-
-        # Тут опишите основную логику игры.
         handle_keys(main_snake)
         main_snake.update_direction()
         main_snake.move()
-        if main_snake.positions[0] == main_apple.position:
+
+
+        if main_snake.get_head_position() == main_apple.position:
             main_snake.length += 1
-            main_apple.randomize_position(main_snake.positions)
-            # Яблоко не должно появиться на змейки, нужно
-            # передавать координаты занятых мест. - Исправлено.
+            main_apple.randomize_position(snake.positions)
+
+        screen.fill(BOARD_BACKGROUND_COLOR)
         main_snake.draw()
         main_apple.draw()
+
         pygame.display.update()
+        clock.tick(SPEED)
+
 
 
 if __name__ == '__main__':
